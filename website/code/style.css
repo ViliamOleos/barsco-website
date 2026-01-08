@@ -1,0 +1,29 @@
+body {
+  font-family: 'Times New Roman', Times, serif;
+  padding: 2rem;
+  background-color: #437f97;
+  color: whitesmoke;
+} p {
+  padding: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.title {
+  font-family: system-ui;
+  padding: 1rem;
+  padding-bottom: 0rem;
+}
+
+.page {
+  margin: 1rem;
+  width: min(40rem, calc(100vw - 4rem));
+  margin-left: calc((50vw - 2rem) - min(40rem, calc(100vw - 4rem))/2);
+} .pagemain {
+  background-color: wheat;
+  color: black;
+}
+
+.tab {
+  margin-left: 2rem;
+}
