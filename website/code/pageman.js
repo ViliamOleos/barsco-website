@@ -25,12 +25,14 @@ function fileAddress(address, type) {
 
 function main() {
 	var address = DEBUG404?
-		prompt("address", "https://barsco.neocities.org/constitution/art1/sec1/") : window.location.href;
+		prompt("address", "https://barsco.neocities.org/constitution/art1-billOfRights/sec1-equalityAndRightsOfMen/") : window.location.href;
 
 	// vvv Gets the navigation part of the URL vvv
 	address = address.slice(address.indexOf('/', address.indexOf('/', address.indexOf('/')+1)+1)+1);
 	if(address == "") { address = "index"; }
 	
+	// TODO: multiple books support
+	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1))
 	var code = source(fileAddress(address, ".txt"));
 	var text = source(fileAddress(address, ".md"));
 
