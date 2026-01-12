@@ -9,6 +9,7 @@ function source(path) {
 
 window.onload = main;
 var DEBUG404 = true;
+var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1-billOfRights/sec1-equalityAndRightsOfMen/";
 var TABUS = " \\: ";
 
 // gives You a server-side address for the requested file
@@ -25,14 +26,14 @@ function fileAddress(address, type) {
 
 function main() {
 	var address = DEBUG404?
-		prompt("address", "https://barsco.neocities.org/constitution/art1-billOfRights/sec1-equalityAndRightsOfMen/") : window.location.href;
+		prompt("address", DEBUGDEFAULTLNK) : window.location.href;
 
 	// vvv Gets the navigation part of the URL vvv
 	address = address.slice(address.indexOf('/', address.indexOf('/', address.indexOf('/')+1)+1)+1);
 	if(address == "") { address = "index"; }
 	
 	// TODO: multiple books support
-	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1))
+	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1)) { alert("This is a book"); }
 	var code = source(fileAddress(address, ".txt"));
 	var text = source(fileAddress(address, ".md"));
 
