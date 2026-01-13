@@ -7,12 +7,7 @@ function source(path) {
 	return text;
 }
 
-window.onload = main;
-var DEBUG404 = true;
-var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1-billOfRights/sec1-equalityAndRightsOfMen/";
-var TABUS = " \\: ";
-
-// gives You a server-side address for the requested file
+// gives You a server-side address for the described file
 function fileAddress(address, type) {
 	return(
 		"/".concat(
@@ -24,20 +19,29 @@ function fileAddress(address, type) {
 	);
 }
 
+window.onload = main;
+var DEBUG404 = true;
+var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1-billOfRights/sec1-equalityAndRightsOfMen/";
+var TABUS = " \\: ";
+
+function insertParag() {
+
+}
+
 function main() {
-	var address = DEBUG404?
-		prompt("address", DEBUGDEFAULTLNK) : window.location.href;
+	var address = DEBUG404 ? prompt("address", DEBUGDEFAULTLNK) : window.location.href;
 
 	// vvv Gets the navigation part of the URL vvv
 	address = address.slice(address.indexOf('/', address.indexOf('/', address.indexOf('/')+1)+1)+1);
 	if(address == "") { address = "index"; }
 	
-	// TODO: multiple books support
-	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1)) { alert("This is a book"); }
+	var text = null;
+	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1)) { 
+		text = source(fileAddress(address, ".md"));
+	}
 	var code = source(fileAddress(address, ".txt"));
-	var text = source(fileAddress(address, ".md"));
 
-	if(!code) {
+	if(text) {
 		while(true) {
 			var paragraph = document.createElement("p");
 			var tab = document.createElement("span"); tab.className = "tab";
