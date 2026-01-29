@@ -1,2 +1,4 @@
 art Article
 sec Section
+
+art1 Bill of Rights

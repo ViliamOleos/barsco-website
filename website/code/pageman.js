@@ -21,7 +21,7 @@ function fileAddress(address, type) {
 
 window.onload = main;
 var DEBUG404 = true;
-var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1-billOfRights/sec1-equalityAndRightsOfMen/";
+var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1/sec1/";
 var TABUS = " \\: ";
 
 function insertParag() {
