@@ -20,20 +20,16 @@ function fileAddress(address, type) {
 }
 
 window.onload = main;
-var DEBUG404 = true;
+var DEBUG404 = false;
 var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1/sec1/";
 var TABUS = " \\: ";
-
-function insertParag() {
-
-}
 
 function main() {
 	var address = DEBUG404 ? prompt("address", DEBUGDEFAULTLNK) : window.location.href;
 
 	// vvv Gets the navigation part of the URL vvv
 	address = address.slice(address.indexOf('/', address.indexOf('/', address.indexOf('/')+1)+1)+1);
-	if(address == "") { address = "index"; }
+	//if(address == "") { address = "main"; }
 	
 	var text = null;
 	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1)) { 
@@ -59,8 +55,18 @@ function main() {
 				insert.appendChild(paragraph); break; 
 			}
 		}
+	} else if(code) {
+		var token; var el;
+		while(code.indexOf("\n")) {
+			token = code.indexOf(">");
+			if(token == 0) {
+				el = document.createElement("h1");
+				el.appendChild(document.createTextNode(code.slice(1, code.indexOf("\n"))));
+			}
+			code.slice(code.indexOf("\n")+1);
+		}
 	} else {
-		alert("This is a code page (to be implemented).");
+		alert("Not Found.");
 	}
 
 	insert.appendChild(paragraph);
