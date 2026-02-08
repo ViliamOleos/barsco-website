@@ -24,6 +24,12 @@ var DEBUG404 = false;
 var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1/sec1/";
 var TABUS = " \\: ";
 
+function textElement(tag, text) {
+	var el = document.createElement(tag);
+	el.appendChild(document.createTextNode(text));
+	return el;
+}
+
 function main() {
 	var address = DEBUG404 ? prompt("address", DEBUGDEFAULTLNK) : window.location.href;
 
@@ -38,36 +44,38 @@ function main() {
 	var code = source(fileAddress(address, ".txt"));
 
 	if(text) {
-		while(true) {
-			var paragraph = document.createElement("p");
-			var tab = document.createElement("span"); tab.className = "tab";
-			paragraph.appendChild(tab);
+		// Consume the $ name; TODO
+		text=text.slice(text.indexOf(TABUS)+TABUS.length);
 
-			var tabIDX = text.indexOf(TABUS);
-			if(tabIDX!=-1) { text=text.slice(tabIDX+TABUS.length); }
+		while(text.indexOf(TABUS)!=-1) {
+			var el_parag = document.createElement("p"); 
+				var el_tab = document.createElement("span"); el_tab.className = "tab";
+			
 			tabIDX = text.indexOf(TABUS);
-			if(tabIDX!=-1) { 
-				paragraph.appendChild(document.createTextNode(text.slice(0, tabIDX)));
-				insert.appendChild(paragraph);
-				text.slice(tabIDX+TABUS.length);
-			} else { 
-				paragraph.appendChild(document.createTextNode(text)); 
-				insert.appendChild(paragraph); break; 
-			}
+
+			el_parag.appendChild(el_tab); 
+				el_parag.appendChild(document.createTextNode(text.slice(0,tabIDX)));
+
+			insert.appendChild(el_parag);
+
+			text=text.slice(tabIDX+TABUS.length);
 		}
 	} else if(code) {
-		var token; var el;
-		while(code.indexOf("\n")) {
+		while(code.indexOf("\n")!=-1) {
+			var token; var el;
+
 			token = code.indexOf(">");
 			if(token == 0) {
 				el = document.createElement("h1");
 				el.appendChild(document.createTextNode(code.slice(1, code.indexOf("\n"))));
 			}
-			code.slice(code.indexOf("\n")+1);
+
+			code = code.slice(code.indexOf("\n")+1);
+
+			insert.appendChild(el);
 		}
+
 	} else {
 		alert("Not Found.");
 	}
-
-	insert.appendChild(paragraph);
 }
