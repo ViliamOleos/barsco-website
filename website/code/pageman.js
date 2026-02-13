@@ -32,11 +32,16 @@ function textElement(tag, text) {
 
 function main() {
 	var address = DEBUG404 ? prompt("address", DEBUGDEFAULTLNK) : window.location.href;
+	var filename; 
 
 	// vvv Gets the navigation part of the URL vvv
 	address = address.slice(address.indexOf('/', address.indexOf('/', address.indexOf('/')+1)+1)+1);
-	//if(address == "") { address = "main"; }
+	// vvv Gets the file part of the URL vvv
+	filename = fileAddress(address, "");
+	filename = filename.slice(filename.lastIndexOf("/")+1);
 	
+	
+	// text or code
 	var text = null;
 	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1)) { 
 		text = source(fileAddress(address, ".md"));
@@ -45,6 +50,11 @@ function main() {
 
 	if(text) {
 		// Consume the $ name; TODO
+		var el;
+		el = document.createElement("h1");
+		el.appendChild(document.createTextNode(filename.concat(": ".concat(text.slice(2, text.indexOf("\n"))))));
+		insert.appendChild(el);
+
 		text=text.slice(text.indexOf(TABUS)+TABUS.length);
 
 		while(text.indexOf(TABUS)!=-1) {
@@ -62,12 +72,14 @@ function main() {
 		}
 	} else if(code) {
 		while(code.indexOf("\n")!=-1) {
-			var token; var el;
+ 			var el;
 
-			token = code.indexOf(">");
-			if(token == 0) {
+			if(code.indexOf(">") == 0) {
 				el = document.createElement("h1");
 				el.appendChild(document.createTextNode(code.slice(1, code.indexOf("\n"))));
+			} else {
+				el = document.createElement("p");
+				el.appendChild(document.createTextNode(code.slice(0, code.indexOf("\n"))));
 			}
 
 			code = code.slice(code.indexOf("\n")+1);
