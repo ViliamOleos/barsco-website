@@ -48,9 +48,10 @@ function main() {
 	}
 	var code = source(fileAddress(address, ".txt"));
 
+ 	var el;
 	if(text) {
+
 		// Consume the $ name; TODO
-		var el;
 		el = document.createElement("h1");
 		el.appendChild(document.createTextNode(filename.concat(": ".concat(text.slice(2, text.indexOf("\n"))))));
 		insert.appendChild(el);
@@ -70,15 +71,24 @@ function main() {
 
 			text=text.slice(tabIDX+TABUS.length);
 		}
-	} else if(code) {
-		while(code.indexOf("\n")!=-1) {
- 			var el;
 
+	} else if(code) {
+
+		while(code.indexOf("\n")!=-1) {
 			if(code.indexOf(">") == 0) {
 				el = document.createElement("h1");
 				el.appendChild(document.createTextNode(code.slice(1, code.indexOf("\n"))));
 			} else {
 				el = document.createElement("p");
+
+				var linkStart = code.indexOf("<[");
+				if(linkStart<code.indexOf("\n") && linkStart!=-1) {
+					var linkTextEnd = code.indexOf("]", linkStart);
+					var linkText = code.slice(linkStart+2, linkTextEnd);
+					var linkScript = code.slice(linkTextEnd+1, code.indexOf(">", linkTextEnd));
+					alert(linkScript);
+				}
+
 				el.appendChild(document.createTextNode(code.slice(0, code.indexOf("\n"))));
 			}
 
