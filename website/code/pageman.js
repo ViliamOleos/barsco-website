@@ -19,16 +19,14 @@ function fileAddress(address, type) {
 	);
 }
 
+function appendText(el, text) { el.appendChild(document.createTextNode(text)); }
+
+////////////////////////////////////////// MAIN //////////////////////////////////////////
+
 window.onload = main;
 var DEBUG404 = false;
 var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1/sec1/";
 var TABUS = " \\: ";
-
-function textElement(tag, text) {
-	var el = document.createElement(tag);
-	el.appendChild(document.createTextNode(text));
-	return el;
-}
 
 function main() {
 	var address = DEBUG404 ? prompt("address", DEBUGDEFAULTLNK) : window.location.href;
@@ -53,7 +51,7 @@ function main() {
 
 		// Consume the $ name; TODO
 		el = document.createElement("h1");
-		el.appendChild(document.createTextNode(filename.concat(": ".concat(text.slice(2, text.indexOf("\n"))))));
+		appendText(el, filename.concat(": ".concat(text.slice(2, text.indexOf("\n")))) );
 		insert.appendChild(el);
 
 		text=text.slice(text.indexOf(TABUS)+TABUS.length);
@@ -65,7 +63,7 @@ function main() {
 			tabIDX = text.indexOf(TABUS);
 
 			el_parag.appendChild(el_tab); 
-				el_parag.appendChild(document.createTextNode(text.slice(0,tabIDX)));
+				appendText(el_parag, text.slice(0,tabIDX));
 
 			insert.appendChild(el_parag);
 
@@ -77,7 +75,7 @@ function main() {
 		while(code.indexOf("\n")!=-1) {
 			if(code.indexOf(">") == 0) {
 				el = document.createElement("h1");
-				el.appendChild(document.createTextNode(code.slice(1, code.indexOf("\n"))));
+				appendText(el, code.slice(1, code.indexOf("\n")));
 			} else {
 				el = document.createElement("p");
 
@@ -85,11 +83,18 @@ function main() {
 				if(linkStart<code.indexOf("\n") && linkStart!=-1) {
 					var linkTextEnd = code.indexOf("]", linkStart);
 					var linkText = code.slice(linkStart+2, linkTextEnd);
-					var linkScript = code.slice(linkTextEnd+1, code.indexOf(">", linkTextEnd));
-					alert(linkScript);
+					var linkEnd = code.indexOf(">", linkTextEnd);
+					var linkScript = code.slice(linkTextEnd+1, linkEnd);
+
+					appendText(el, code.slice(0, linkStart));
+					code = code.slice(linkEnd+1);
+					
+					var linkel = document.createElement("a"); linkel.href = linkScript;
+					appendText(linkel, linkText);
+					el.appendChild(linkel);
 				}
 
-				el.appendChild(document.createTextNode(code.slice(0, code.indexOf("\n"))));
+				appendText(el, code.slice(0, code.indexOf("\n")));
 			}
 
 			code = code.slice(code.indexOf("\n")+1);
