@@ -1,4 +1,4 @@
 > MAIN PAGE
 Welcome to the RedHood County website!
-To be honest, there's not much to check out yet. You can read the WIP <[constitution]../constitution> if You'd like or try to mess with the pages!
+To be honest, there's not much to check out yet. You can read the WIP <[constitution]../constitution_index/> if You'd like or try to mess with the pages!
 If You find a bug or something like that, DM me (@viliamoleosdev) and tell me about it.

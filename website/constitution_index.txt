@@ -1,0 +1,7 @@
+> Constitution Index
+Temporary page for navigating the Constitution!
+
+art0: <[Definitions and Clarifications]../constitution/art0/>
+art1>sec1: <[Bill of Rights]../constitution/art1/sec1/>
+
+<[Back Home]../main/>
