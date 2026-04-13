@@ -1,3 +1,5 @@
+////////////////////////////////////////// FUNC //////////////////////////////////////////
+
 function source(path) {
 	var xmlhttp = new XMLHttpRequest(); var text = null;
 
@@ -24,13 +26,14 @@ function appendText(el, text) { el.appendChild(document.createTextNode(text)); }
 ////////////////////////////////////////// MAIN //////////////////////////////////////////
 
 window.onload = main;
-var DEBUG404 = false;
-var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1/sec1/";
-var TABUS = " \\: ";
+
+	var DEBUG404 = false;
+	var DEBUGDEFAULTLNK = "https://barsco.neocities.org/constitution/art1/sec1/";
+	var TABUS = " \\: ";
 
 function main() {
-	var address = DEBUG404 ? prompt("address", DEBUGDEFAULTLNK) : window.location.href;
 	var filename; 
+	var address = DEBUG404 ? prompt("address", DEBUGDEFAULTLNK) : window.location.href;
 
 	// vvv Gets the navigation part of the URL vvv
 	address = address.slice(address.indexOf('/', address.indexOf('/', address.indexOf('/')+1)+1)+1);
@@ -38,8 +41,7 @@ function main() {
 	filename = fileAddress(address, "");
 	filename = filename.slice(filename.lastIndexOf("/")+1);
 	
-	
-	// text or code
+	// text or code page?
 	var text = null;
 	if(address.indexOf(source("/books.md"))<address.indexOf('/', address.indexOf('/')+1)) { 
 		text = source(fileAddress(address, ".md"));
@@ -49,6 +51,7 @@ function main() {
  	var el;
 	if(text) {
 
+		// header
 		// Consume the $ name; TODO
 		el = document.createElement("h1");
 		appendText(el, filename.concat(": ".concat(text.slice(2, text.indexOf("\n")))) );
@@ -56,9 +59,11 @@ function main() {
 
 		text=text.slice(text.indexOf(TABUS)+TABUS.length);
 
+		// TAB parse loop
+		var el_parag; var el_tab;
 		while(text.indexOf(TABUS)!=-1) {
-			var el_parag = document.createElement("p"); 
-				var el_tab = document.createElement("span"); el_tab.className = "tab";
+			el_parag = document.createElement("p"); 
+				el_tab = document.createElement("span"); el_tab.className = "tab";
 			
 			tabIDX = text.indexOf(TABUS);
 
@@ -72,24 +77,30 @@ function main() {
 
 	} else if(code) {
 
+		var linkStart;
+			var linkTextEnd; var linkText; var linkEnd; var linkScript;
+			var linkel;
+
 		while(code.indexOf("\n")!=-1) {
+			// nonexistent switch statement
 			if(code.indexOf(">") == 0) {
 				el = document.createElement("h1");
 				appendText(el, code.slice(1, code.indexOf("\n")));
 			} else {
 				el = document.createElement("p");
 
-				var linkStart = code.indexOf("<[");
+				// linkScript
+				linkStart = code.indexOf("<[");
 				if(linkStart<code.indexOf("\n") && linkStart!=-1) {
-					var linkTextEnd = code.indexOf("]", linkStart);
-					var linkText = code.slice(linkStart+2, linkTextEnd);
-					var linkEnd = code.indexOf(">", linkTextEnd);
-					var linkScript = code.slice(linkTextEnd+1, linkEnd);
+					linkTextEnd = code.indexOf("]", linkStart);
+					linkText = code.slice(linkStart+2, linkTextEnd);
+					linkEnd = code.indexOf(">", linkTextEnd);
+					linkScript = code.slice(linkTextEnd+1, linkEnd);
 
 					appendText(el, code.slice(0, linkStart));
 					code = code.slice(linkEnd+1);
 					
-					var linkel = document.createElement("a"); linkel.href = linkScript;
+					linkel = document.createElement("a"); linkel.href = linkScript;
 					appendText(linkel, linkText);
 					el.appendChild(linkel);
 				}
@@ -106,3 +117,5 @@ function main() {
 		alert("Not Found.");
 	}
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////
