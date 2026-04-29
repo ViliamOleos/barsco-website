@@ -9,12 +9,6 @@ body {
   padding-bottom: 0.25rem;
 }
 
-.title {
-  font-family: system-ui;
-  padding: 1rem;
-  padding-bottom: 0rem;
-}
-
 .page {
   margin: 1rem;
   width: min(40rem, calc(100vw - 4rem));
@@ -24,6 +18,16 @@ body {
   color: black;
 }
 
-.tab {
-  margin-left: 2rem;
+.title {
+  font-family: system-ui;
+  padding: 1rem;
+  padding-bottom: 0rem;
+} .tab {
+  margin-left: 50%;
+}
+
+.centre {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
