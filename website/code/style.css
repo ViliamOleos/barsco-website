@@ -1,33 +1,37 @@
 body {
-  font-family: 'Times New Roman', Times, serif;
-  padding: 2rem;
-  background-color: #437f97;
-  color: whitesmoke;
+	font-family: 'Times New Roman', Times, serif;
+	padding: 2rem;
+	background-color: #437f97;
+	color: whitesmoke;
 } h1, p {
-  padding: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+	padding: 1rem;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+}
+
+.cap {
+	border-radius: 2rem 2rem 0 0;
 }
 
 .page {
-  margin: 1rem;
-  width: min(40rem, calc(100vw - 4rem));
-  margin-left: calc((50vw - 2rem) - min(40rem, calc(100vw - 4rem))/2);
+	margin: 1rem;
+	width: min(40rem, calc(100vw - 4rem));
+	margin-left: calc((50vw - 2rem) - min(40rem, calc(100vw - 4rem))/2);
 } .pagemain {
-  background-color: wheat;
-  color: black;
-}
-
-.title {
-  font-family: system-ui;
-  padding: 1rem;
-  padding-bottom: 0rem;
-} .tab {
-  margin-left: 4ch;
+	background-color: wheat;
+	color: black;
 }
 
 .centre {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.title {
+	font-family: system-ui;
+	padding: 1rem;
+	padding-bottom: 0rem;
+} .tab {
+	margin-left: 4ch;
 }
